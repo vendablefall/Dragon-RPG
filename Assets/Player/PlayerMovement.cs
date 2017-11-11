@@ -23,24 +23,6 @@ public class PlayerMovement : MonoBehaviour
         currentDestination = transform.position;
     }
 
-    // Fixed update is called in sync with physics
-    private void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.G)) //g for gamepad TODO allow player to remap later
-        {
-            isInDirectMode = !isInDirectMode;
-            currentDestination = transform.position;
-            Cursor.visible = !Cursor.visible;
-        }
-        if (isInDirectMode)
-        {
-            ProcessDirectMovement();
-        }
-        else
-        {
-            ProcessMouseMovement();
-        }
-    }
 
     private void ProcessDirectMovement()
     {
@@ -53,33 +35,31 @@ public class PlayerMovement : MonoBehaviour
              thirdPersonCharicter.Move(movement, false, false);
     }
 
-    private void ProcessMouseMovement()
-    {
-           if (Input.GetMouseButton(0))
-        {
-            clickPoint = cameraRaycaster.hit.point;
-              // So not set in default case
-           switch (cameraRaycaster.currentLayerHit)
-            {
-                case Layer.Walkable:
-                currentDestination = ShortDistance(clickPoint,walkMoveStopRadius);
-                //currentDestination = clickPoint;
-                break;
+    // private void ProcessMouseMovement()
+    // {
+    //        if (Input.GetMouseButton(0))
+    //     {
+    //         clickPoint = cameraRaycaster.hit.point;
+    //           // So not set in default case
+    //        switch (cameraRaycaster.currentLayerHit)
+    //         {
+    //             case Layer.Walkable:
+    //             currentDestination = ShortDistance(clickPoint,walkMoveStopRadius);
+    //             //currentDestination = clickPoint;
+    //             break;
 
-                case Layer.Enemy:
-                print("moving to enemy");
-                currentDestination = ShortDistance(clickPoint,attackMoveStopRadius);
-                break;
+    //             case Layer.Enemy:
+    //             print("moving to enemy");
+    //             currentDestination = ShortDistance(clickPoint,attackMoveStopRadius);
+    //             break;
 
-                default:
-                print("Unexpected layer found");
-                break;
-            }
-        }
-
-        WalkToDestination();
-
-    }
+    //             default:
+    //             print("Unexpected layer found");
+    //             break;
+    //         }
+    //     }
+    //     WalkToDestination();
+    // }
 
     void WalkToDestination()
     {       

@@ -9,28 +9,31 @@ public class cursorAffordance : MonoBehaviour {
 	public Texture2D debugCursor = null;
 	public Texture2D blankCursor = null;
 	public Vector2 hotSpot = new Vector2(0,0) ;
+
+	[SerializeField] const int walkableLayerNumber = 8;
+	[SerializeField] const int enemyLayerNumber = 9;
 	CameraRaycaster cameraRaycaster;
 	// Use this for initialization
 	void Start () {
 		cameraRaycaster = GetComponent<CameraRaycaster>();
-		cameraRaycaster.layerChangeObservers += OnDelegateCalled;
+		cameraRaycaster.notifyLayerChangeObservers += OnLayerChanged;
 	}
 	
 
-	void OnDelegateCalled (Layer newLayer) {
+	void OnLayerChanged (int newLayer) {
 			
 		//Cursor.SetCursor(walkCursor, hotSpot ,CursorMode.Auto);
 			switch (newLayer)
 			{
-				case Layer.Enemy:
+				case enemyLayerNumber:
 					Cursor.SetCursor(enemyCursor,hotSpot,CursorMode.Auto);
 					break;
 
-				case Layer.Walkable:
+				case walkableLayerNumber:
 					Cursor.SetCursor(walkCursor,hotSpot,CursorMode.Auto);
 					break;
 
-				case Layer.RaycastEndStop:
+				default:
 					Cursor.SetCursor(debugCursor, hotSpot,CursorMode.Auto);
 					break;
 
