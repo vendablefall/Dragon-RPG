@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
             case walkableLayerNumber:
                 walkTarget.transform.position = raycastHit.point;
                 aiCharacterControl.SetTarget(walkTarget.transform);
-                print("walkign to target!!!");
+                //print("walkign to target!!!");
                 break;
             default:
                 Debug.Log("Dont know how to process this movement!!");
