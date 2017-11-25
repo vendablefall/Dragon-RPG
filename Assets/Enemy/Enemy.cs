@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour , IDamagable {
 	[SerializeField] float maxHealthPoints = 100f;
 	[SerializeField] float attackRadius = 2f;
-	[SerializeField] float sightRadius = 4f;
+	[SerializeField] float chaseRadius = 4f;
 	[SerializeField] float chaseStopRadius = 6f;
 	[SerializeField] float damagePerShot = 9f;
 	[SerializeField] float secondsBetweenShots = 0.5f;
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour , IDamagable {
 			aiCharicterControl.SetTarget(transform);
 		}
 
-		if (distanceToPlayer <= sightRadius)
+		if (distanceToPlayer <= chaseRadius)
 		{
 			aiCharicterControl.SetTarget(player.transform);
 		}
@@ -79,18 +79,13 @@ public class Enemy : MonoBehaviour , IDamagable {
 
 	void OnDrawGizmos()
 	{
-
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(transform.position, attackRadius);
 
 		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere(transform.position, sightRadius);
+		Gizmos.DrawWireSphere(transform.position, chaseRadius);
 
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere(transform.position, chaseStopRadius);
-
-
 	}
-
-
 }
